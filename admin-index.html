@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="admin-style.css">
+    <style>
+
+        body{
+            height: 100vh;
+        }
+
+        nav{
+            height: 10vh;
+        }
+
+.mainDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 80vh;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.footerSection{
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+    </style>
+</head>
+<body>
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container">
+              <a class="navbar-brand" href="#">Ease Expense</a>
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div
+                class="collapse navbar-collapse justify-content-end"
+                id="navbarNav"
+              >
+              </div>
+            </div>
+          </nav>
+   
+    <div class="mainDiv">
+    <div class="login-container">
+        <div class="login-box">
+            <h2 class="text-center">Admin Login</h2>
+            <form id="adminLoginForm">
+                <div class="mb-3">
+                    <label for="adminEmail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="adminEmail" placeholder="Enter email" >
+                </div>
+                <div class="mb-3">
+                    <label for="adminPassword" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="adminPassword" placeholder="Enter password">
+                </div>
+                <div id="error-message" class="text-danger mb-2"></div>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<section class="footerSection bg-dark">
+    <div class="footer">&copy; 2025 Ease Expense. All Rights Reserved.</div>
+  </section>
+
+    <script>
+
+    // const apiURL = "http://127.0.0.1:4000/api";
+    const apiURL = "https://expensenodeapp.azurewebsites.net/api";
+    document.getElementById("adminLoginForm").addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const email = document.getElementById("adminEmail").value;
+    const password = document.getElementById("adminPassword").value;
+    const errorMessage = document.getElementById("error-message");
+
+    try {
+        const response = await fetch(`${apiURL}/admin-users/login` , {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            errorMessage.textContent = "Login Successful!";
+            document.cookie = `authToken=${data.token}; path=/; max-age=86400; Secure`;
+            setTimeout(() => {
+                window.location.href = "admin-home.html"; // Redirect to dashboard
+            }, 2000);
+        } else {
+            errorMessage.textContent = data.message;
+        }
+    } catch (error) {
+        console.error("Login error:", error);
+        errorMessage.textContent = "Something went wrong. Please try again.";
+    }
+});
+
+    </script>
+</body>
+</html>
