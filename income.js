@@ -1,5 +1,5 @@
 // const apiURL = "http://127.0.0.1:4000/api";
-const apiURL = "https://expensebackend-ajhkhddvaphrhefv.australiaeast-01.azurewebsites.net/api";
+const apiURL = "https://expapp-d0ezekckc8egdddd.australiasoutheast-01.azurewebsites.net/api";
 
 
 document.getElementById("logoutButton").addEventListener("click", logout);

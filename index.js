@@ -6,7 +6,7 @@ const signinForm = document.getElementById("signin-form");
 const signinErrorAlert = document.getElementById("signin-error-alert");
 const signinSuccessAlert = document.getElementById("signin-success-alert");
 // const apiUrl = "http://127.0.0.1:4000/api";
-const apiUrl = "https://expensebackend-ajhkhddvaphrhefv.australiaeast-01.azurewebsites.net/api";
+const apiUrl = "https://expapp-d0ezekckc8egdddd.australiasoutheast-01.azurewebsites.net/api";
 
 // Handle Sign-Up
 document.getElementById("signupButton").addEventListener("click", function (e) {
