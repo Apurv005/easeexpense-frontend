@@ -6,7 +6,7 @@ const signinForm = document.getElementById("signin-form");
 const signinErrorAlert = document.getElementById("signin-error-alert");
 const signinSuccessAlert = document.getElementById("signin-success-alert");
 // const apiUrl = "http://127.0.0.1:4000/api";
-const apiUrl = "https://expapp-d0ezekckc8egdddd.australiasoutheast-01.azurewebsites.net/api";
+const apiUrl = "https://expapp-d0ezekckc8egdddd.australiacentral-01.azurewebsites.net/api";
 
 // Handle Sign-Up
 document.getElementById("signupButton").addEventListener("click", function (e) {
@@ -122,12 +122,17 @@ signinForm.addEventListener("submit", function (event) {
           window.location.href = "/dashboard.html"; // Change URL as needed
         }, 2000);
       } else {
+
+        console.log("error", data);
         signinErrorAlert.textContent =
           data.message || "Invalid email or password.";
         signinErrorAlert.classList.remove("d-none");
       }
     })
     .catch((error) => {
+
+      console.log("error", error);
+      
       signinErrorAlert.textContent = "Something went wrong. Please try again.";
       signinErrorAlert.classList.remove("d-none");
       console.error("Login Error:", error);
